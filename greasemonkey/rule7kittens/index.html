@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+ <head>
+  <title> Aquarionics -> Projects -> Greasemonkey -> Rule7Kittens </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="Nicholas Avenell">
+
+ <script type="application/x-javascript">
+<!--
+function install (aEvent)
+{
+  var params = {
+    "Retainers are Kittens": { URL: aEvent.target.href,
+             IconURL: aEvent.target.getAttribute("iconURL"),
+             Hash: 'sha1:69fc9411f1ddcacd18ac8535775889ab3e8599d3',
+             toString: function () { return this.URL; }
+    }
+  };
+  InstallTrigger.install(params);
+
+  return false;
+}
+-->
+</script>
+
+
+ </head>
+
+ <body>
+
+<p><a href="/">Aquarionics</a> - <a href="/projects">Projects</a> - <a href="/projects/greasemonkey">Greasemonkey</a> - Rule7 Kittens</p>
+  
+<h1>Turn retainers into kittens</h1>
+
+<p>This is a script that turns all instances of the word "Retainer" on <a href="http://forums.rule7.co.uk">Rule7</a> into the word "Kitten". There are a number of reasons why I would like to do this, all of them well thought out and obvious.
+</p><p>
+<a href="https://addons.mozilla.org/en-US/firefox/addon/748">Greasemonkey</a> is a firefox extension that allows you to add scripts to web sites & pages to make them work better.</p>
+
+  <ul>
+	<li><a href="retainers_are_kittens.user.js">If you have Greasemonkey installed, you can click here to install Kittens as a greasemonkey script.</li>
+	<li>
+	<a href="retainersarekittens.xpi"  onclick="return install(event);">If you do not, this link will install it as a standalone Firefox extension</a>
+	</li>
+  </ul>
+
+<hr>
+&copy; Nicholas 'Aquarion' Avenell 2008, <address>nicholas then an at sign, then aquarionics and a full stop, then 'com'</address>
+ </body>
+</html>
