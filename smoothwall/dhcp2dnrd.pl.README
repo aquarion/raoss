@@ -1,0 +1,3 @@
+Turns DHCPd leases into entries in the hosts file, see 
+<http://www.aquarionics.com/2010/03/03/dns-for-dhcpd-in-the-future> 
+for details
