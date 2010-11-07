@@ -21,7 +21,7 @@ TIMECACHE="/var/cache/aquarion/lastime.cache"; # You need to create and have wri
 # 
 #  Fill in the things above,
 # 
-#  echo 0 > to wherever you put TIMECACHE
+#  echo `date +%s` > wherever you put TIMECACHE
 #
 #  Put it in Cron and forget about it.
 #
