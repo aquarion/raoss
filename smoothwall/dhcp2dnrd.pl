@@ -8,6 +8,9 @@
 #         Nicholas Avenell <nicholas@aquarionics.com>
 #         http://www.aquarionics.com
 #
+#         Caleb Anderson <caleb@l0ser.net>
+#         http://l0ser.net
+#
 # Purpose: read ips and names out of dhcpd.leases and 
 #          add them to the /etc/hosts file, then restart
 #          dnrd so we can have dns for all hosts being served
@@ -22,6 +25,9 @@
 #  
 #  v0.1.1
 #  2010.03.03   Modifications to support Smoothwall 3 by NA
+#
+#  v0.1.2
+#  2010.12.30   Hacked in support for static leases in SW 3 by CA
 #
 
 BEGIN { $Class::Date::WARNINGS=0; }
