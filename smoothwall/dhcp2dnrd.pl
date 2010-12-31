@@ -31,10 +31,10 @@ use Class::Date qw(date localdate gmdate now);
 
 
 # configuration
-$extendedhostname = ".d.water.gkhs.net";
+$extendedhostname = ".robotdomain";
 $hostspath = "/etc/hosts";
 $dhcpdpath = "/usr/etc/dhcpd.leases";
-
+$dhcpdconfpath = "/usr/etc/dhcpd.conf";
 
 # main
 
@@ -65,6 +65,22 @@ if (open(DHCPD, $dhcpdpath)) {
 
 # debug
 #foreach $line (@dhcpd) {
+#	print $line;
+#} # end foreach
+#print "\n";
+
+
+# read dhcpd.conf file
+if (open(DHCPDCONF, $dhcpdconfpath)) {
+	@dhcpdconf = <DHCPDCONF>;
+	close(DHCPDCONF);
+} else {
+	print "ERROR: cannot open $dhcpdconfpath\n";
+	exit;
+} # end if
+
+# debug
+#foreach $line (@dhcpdconf) {
 #	print $line;
 #} # end foreach
 #print "\n";
@@ -102,7 +118,30 @@ foreach $line (@dhcpd) {
 #} # end foreach
 
 
-# pull out latest leases into @now_leases
+# get static dhcpd leases into @static_leases
+my @static_leases;
+$i = 0;
+foreach $line (@dhcpdconf) {
+	if ($line !~ /^#/ && $line !~ /^[\n]/) {
+		if ($line =~ /host/) {
+			$ip = $1 if ($line =~ /.*fixed-address\s(.*?)\;/);
+			$hostname = $1 if ($line =~ /.*option host-name \"(.*)\"\;/);
+			$static_leases[$i][0] = $ip;
+			$static_leases[$i][1] = $hostname;
+			$i++;
+		} # end if
+	} # end if
+} # end foreach
+
+
+# debug
+#print "printing \$static_leases\n";
+#for ($i = 0; $i < @static_leases; $i++) {
+#	print $static_leases[$i][0]." ".$static_leases[$i][1]."\n";
+#} # end foreach
+
+
+# pull out current dynamic leases into @now_leases
 my @now_leases;
 my $updated = 0;
 for ($i = 0; $i < @curr_leases; $i++) {
@@ -134,16 +173,21 @@ for ($i = 0; $i < @curr_leases; $i++) {
 if (open(NEW_HOSTS, ">$hostspath")) {
 	my $fin = 0;
 	foreach $line (@hosts) {
-		if ($line !~ /^####dhcp2dnrd####/ && $fin != 1) {
+		if ($line !~ /^####dhcp2dnrd####/ && $line !~ /^####static leases####/ && $fin != 1) {
 			print NEW_HOSTS $line;
 		} else {
 			$fin = 1;
-		} # end if
+} # end if
 	} # end foreach
 	
 	print NEW_HOSTS "####dhcp2dnrd####\n";
 	for ($i = 0; $i < @now_leases; $i++) {
 		print NEW_HOSTS $now_leases[$i][0]."\t\t".$now_leases[$i][2]." ".$now_leases[$i][2].$extendedhostname."\n";
+	} # end for
+	
+	print NEW_HOSTS "####static leases####\n";
+	for ($i = 0; $i < @static_leases; $i++) {
+		print NEW_HOSTS $static_leases[$i][0]."\t\t".$static_leases[$i][1]." ".$static_leases[$i][1].$extendedhostname."\n";
 	} # end for
 	close(NEW_HOSTS);
 } else {
