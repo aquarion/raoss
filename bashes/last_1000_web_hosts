@@ -1,0 +1,2 @@
+#!/bin/bash
+tail --lines=1000 /var/log/apache2/vhost_access.log | cut -d' ' -f 1 | sort | uniq -c | sort -nr
