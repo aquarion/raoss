@@ -27,6 +27,7 @@ Irssi::settings_add_str('awaysms', 'sms_username', '');
 Irssi::settings_add_str('awaysms', 'sms_password', '');
 Irssi::settings_add_str('awaysms', 'sms_number', '');
 Irssi::settings_add_str('awaysms', 'sms_messageclass', 2);
+Irssi::settings_add_str('awaysms', 'sms_defaultsender', "IRC");
 
 
 sub awaysms ($$) {
@@ -45,6 +46,7 @@ sub smsthis{
 	my($password)     = Irssi::settings_get_str('sms_password');
 	my($number)       = Irssi::settings_get_str('sms_number');
 	my($messageclass) = Irssi::settings_get_str('sms_messageclass');
+	my($sender) = Irssi::settings_get_str('sms_defaultsender');
 
 	my($words) = @_;
 
@@ -65,6 +67,7 @@ sub smsthis{
 		."&password=".$password
 		."&message=".$words
 		."&msisdn=".$number
+		."&sender=".$sender
 		."&msg_class=".$messageclass;
 
 	print "[AwaySMS] Sent SMS";
