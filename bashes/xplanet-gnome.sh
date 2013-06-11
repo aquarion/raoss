@@ -24,13 +24,10 @@
 #	- change background according to month
 #
 # 0.42	some additions
-#	   - translated german parts to english
-#	   - added check for required binaries in --init
-#	   - resize and cut the image to propper resolution (so there's no scaling to be done by Gnome)
-#
-# 0.45(NA) Forked from Bapf
-#	   - Translated URLs to Nasa's new eoimages server
-#	
+#	- translated german parts to english
+#	- added check for required binaries in --init
+#	- resize and cut the image to propper resolution (so there's no scaling to be done by Gnome)
+
 # for more information visit http://nullniveau.org/
 #						Bapf
 
@@ -177,13 +174,15 @@ case $1 in
 
 		if [ -e clouds.jpg ]; then
 			if [ $TOOLD -eq 1 ]; then
-				wget --no-cache -O clouds.tmp.jpg http://xplanet.sourceforge.net/clouds/clouds_$BACKRES.jpg
+				wget --no-cache -O clouds.tmp.jpg http://xplanetclouds.com/free/coral/clouds_2048.jpg
 				if [ $? -eq 0 ]; then
-					mv clouds.tmp.jpg clouds.jpg;
+					convert -resize 4096x2048 clouds.tmp.jpg clouds.jpg
+					#mv clouds.tmp.jpg clouds.jpg;
 				fi
 			fi
 		else
-			wget --no-cache -O clouds.jpg http://xplanet.sourceforge.net/clouds/clouds_$BACKRES.jpg
+			wget --no-cache -O clouds.tmp.jpg http://xplanetclouds.com/free/coral/clouds_2048.jpg
+			convert -resize 4096x2048 clouds.tmp.jpg clouds.jpg
 		fi
 		exit;;
 	("--init")
