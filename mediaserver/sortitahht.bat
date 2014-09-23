@@ -1,2 +1,2 @@
 ;@echo off
-filebot -script fn:amc --output "C:/" --log-file amc.log --action move --conflict override -non-strict --def music=y subtitles=en artwork=y "ut_dir=%D" "ut_file=%F" "ut_kind=%K" "ut_title=%N" "ut_label=%L" "ut_state=%S" --def "seriesFormat=TV/{n}/{'S'+s}/{fn}" "animeFormat=Anime/{n}/{fn}" "movieFormat=Movies/{n} {y}/{fn}" "musicFormat=Music/{n}/{fn}" --def plex=localhost C:\Torrential
+filebot -script fn:amc --output "E:/" --log-file amc.log --action move --conflict override -non-strict --def music=y subtitles=en artwork=y --def "seriesFormat=TV Shows/{n}/{'S'+s}/{s00e00} - {t}" "animeFormat=Anime/{n}/{fn}" "movieFormat=Movies/{n} {y}/{fn}" "musicFormat=Music/{n}/{fn}" --def plex=localhost "E:\Torrential"
