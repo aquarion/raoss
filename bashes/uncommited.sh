@@ -4,4 +4,4 @@ function uncommited {
 	echo "Hello";
 }
 
-find $HOME -type d -name .git -exec $HOME/bin/uncommited-dir.sh {} \;
+find -L $HOME/projects -type d -name .git -exec $HOME/bin/uncommited-dir.sh {} \;
