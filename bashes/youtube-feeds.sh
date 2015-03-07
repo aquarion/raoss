@@ -4,7 +4,9 @@ source ~/bin/youtube-lib.bash
 
 youtube checkpoint "http://www.youtube.com/user/loadingreadyrun/" "--match-title ^CheckPoint* --dateafter 20140107"
 youtube lrr "http://www.youtube.com/user/loadingreadyrun/" "--reject-title ^CheckPoint"
-youtube tabletop "http://www.youtube.com/playlist?list=PL4F80C7D2DC8D9B6C"
+youtube tabletop "https://www.youtube.com/playlist?list=PL7atuZxmT954wz47aofSlvu0zbD4YuPOF"
+youtube moviebob "https://www.youtube.com/user/moviebob"
+youtube jimsterling "https://www.youtube.com/user/JimSterling"
 #youtube extracredit "http://www.youtube.com/user/ExtraCreditz"
 #youtube polygon "https://www.youtube.com/playlist?list=PLaDrN74SfdT65yOrX_xTAbQrJsaxIzM_v"
 #youtube polygon "https://www.youtube.com/playlist?list=PLaDrN74SfdT4eCidvom_wIIDEnB7ACn5x"
