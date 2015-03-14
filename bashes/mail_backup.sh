@@ -19,6 +19,7 @@ touch $LOCKFILE
 
 getmail -qr /home/aquarion/.getmail/getmail.aquarionics
 getmail -qr /home/aquarion/.getmail/getmail.istic
+getmail -qr /home/aquarion/.getmail/getmail.siftware
 
 # IMPORTANT: Run this first in a terminal or ssh session to go though the oauth keys
 # before you add it to cron.
