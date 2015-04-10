@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-### Rapidly created script to save a given file to 
-### a mediawiki server, used for Profound Decisions' Empire & Odyssey Events
+# Rapidly created script to save a given file to
+# a mediawiki server, used for Profound Decisions' Empire & Odyssey Events
 
-## To use, you need a config.ini file, like config.ini.example, but with values in it
+# To use, you need a config.ini file, like config.ini.example, but with
+# values in it
 
 import wikitools
 import argparse
@@ -13,9 +14,10 @@ import logging
 import ConfigParser
 import sys
 
+
 class AutoUploader():
 
-    config = False;
+    config = False
 
     def __init__(self):
         self.config = self.getConfig()
@@ -27,7 +29,8 @@ class AutoUploader():
         try:
             config.readfp(open(myDirectory + '/config.ini'))
         except IOError:
-            logging.error("Config file not found at %s" % (myDirectory + '/config.ini') )
+            logging.error("Config file not found at %s" %
+                          (myDirectory + '/config.ini'))
             sys.exit(5)
 
         return config
@@ -48,7 +51,6 @@ class AutoUploader():
             logging.error("Error accessing mediawiki: %s" % e.args[1])
             sys.exit(5)
 
-
     def log_in(self):
 
         try:
@@ -66,7 +68,6 @@ class AutoUploader():
         site.login(username, password)
         return site
 
-
     def is_valid_file(self, parser, arg):
         if not os.path.exists(arg):
             parser.error("The file %s does not exist!" % arg)
@@ -74,11 +75,12 @@ class AutoUploader():
             return arg  # return an open file handle
 
 if __name__ == "__main__":
-    
+
     uploader = AutoUploader()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('file', type=lambda x: uploader.is_valid_file(parser, x))
+    parser.add_argument(
+        'file', type=lambda x: uploader.is_valid_file(parser, x))
     args = parser.parse_args()
 
     uploader.doTheThing(args.file)
