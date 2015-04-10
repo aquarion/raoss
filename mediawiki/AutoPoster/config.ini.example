@@ -1,0 +1,4 @@
+[mediawiki]
+api_location = [mediawiki install]/api.php
+username = [medawiki username]
+password = [medawiki password]
