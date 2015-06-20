@@ -17,5 +17,5 @@ function youtube {
 		mkdir /home/aquarion/hosts/podcasts.aqxs.net/htdocs/$series
 	fi
 	
-	/usr/local/bin/youtube-dl $v $url --ignore-errors --write-info-json --write-thumbnail -o "/home/aquarion/hosts/podcasts.aqxs.net/htdocs/$series/%(title)s-%(id)s.%(ext)s" --dateafter $after --max-filesize 800m --playlist-end 20 $addcmd
+	/usr/local/bin/youtube-dl $v $url --extract-audio --audio-format mp3 --ignore-errors --write-info-json --write-thumbnail -o "/home/aquarion/hosts/podcasts.aqxs.net/htdocs/$series/%(title)s-%(id)s.%(ext)s" --dateafter $after --max-filesize 800m --playlist-end 20 $addcmd
 }
