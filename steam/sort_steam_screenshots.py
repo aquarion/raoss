@@ -39,8 +39,8 @@ URL_BASE = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/"
 
 files = glob.glob("{}/*.png".format(source))
 
-match = re.compile("(\d*)_(\d{4}\-?\d{2})\-?\d{2}\d{6}?_\d*\.png")
-# match = re.compile("\d*_\d{4}.*\.png")
+# match = re.compile("(\d*)_(\d{4}\-?\d{2})\-?\d{2}\d{6}?_\d*\.png")
+match = re.compile("^(\d*)_\d{4}.*\.png")
 
 def fetch_game_data(gameid):
 	if gameid in CHEAT_CACHE:
@@ -75,11 +75,10 @@ def mkdir_p(path):
 for src_file in files:
 	filename = os.path.basename(src_file)
 	gamename = "Unknown"
-	
-
 	matches = match.match(filename)
+
 	if matches:
-		(gameid, month) = matches.groups()
+		gameid = matches.groups()[0]
 		game = fetch_game_data(gameid)
 		if not game:
 			print "{} -> Game ID {} not matched".format(filename, gameid)
