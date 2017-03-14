@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>389</string>
+	<string>417</string>
 	<key>AMApplicationVersion</key>
-	<string>2.4</string>
+	<string>2.6</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -112,7 +112,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:619.000000</string>
+				<string>309.000000:207.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/New PDF from Images.action/Contents/Resources/English.lproj/main.nib</string>
 			</dict>
@@ -581,9 +581,9 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:414.000000</string>
+				<string>309.000000:419.000000</string>
 				<key>nibPath</key>
-				<string>/System/Library/Automator/Rename Finder Items.action/Contents/Resources/English.lproj/main.nib</string>
+				<string>/System/Library/Automator/Rename Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
 			<key>isViewVisible</key>
 			<true/>
@@ -701,7 +701,7 @@
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.500000:195.000000</string>
+				<string>309.000000:522.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Move Finder Items.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -711,19 +711,19 @@
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>007E745D-82E0-49DD-9170-6D5C0433F814</key>
-		<dict>
-			<key>from</key>
-			<string>580915F6-6004-48EF-B8B4-630110FF4334 - 580915F6-6004-48EF-B8B4-630110FF4334</string>
-			<key>to</key>
-			<string>5A49F34D-CFDE-4EC6-BB05-FCAFF46B2EC7 - 5A49F34D-CFDE-4EC6-BB05-FCAFF46B2EC7</string>
-		</dict>
-		<key>DB44457D-2FC9-402E-8917-D0A8F13DF90B</key>
+		<key>44126890-ACEE-4CFB-9BFF-63EC5B0E718B</key>
 		<dict>
 			<key>from</key>
 			<string>5A49F34D-CFDE-4EC6-BB05-FCAFF46B2EC7 - 5A49F34D-CFDE-4EC6-BB05-FCAFF46B2EC7</string>
 			<key>to</key>
 			<string>17001589-C5FE-428B-894B-EFCDF19A466A - 17001589-C5FE-428B-894B-EFCDF19A466A</string>
+		</dict>
+		<key>7860B2FC-FCB9-41F7-9A72-CC2992906217</key>
+		<dict>
+			<key>from</key>
+			<string>580915F6-6004-48EF-B8B4-630110FF4334 - 580915F6-6004-48EF-B8B4-630110FF4334</string>
+			<key>to</key>
+			<string>5A49F34D-CFDE-4EC6-BB05-FCAFF46B2EC7 - 5A49F34D-CFDE-4EC6-BB05-FCAFF46B2EC7</string>
 		</dict>
 	</dict>
 	<key>variables</key>
