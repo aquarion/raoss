@@ -14,7 +14,11 @@ import simplejson
 from pprint import pprint
 
 config = ConfigParser.RawConfigParser()
-config.read('config.ini');
+
+working_dir = os.path.dirname(sys.argv[0])
+config_location = os.path.expanduser("{}/config.ini".format(working_dir))
+
+config.read(config_location);
 
 ### Config file in this form:
 # [steam]
