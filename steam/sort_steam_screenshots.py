@@ -22,24 +22,22 @@ config.read(config_location);
 
 ### Config file in this form:
 # [steam]
-# api_key = Steam API Key
 # screenshots = Directory where .jpg files are
 # destination = Directory to put the renamed things
 
 
 source        = config.get("steam", "screenshots")
 destination   = config.get("steam", "destination")
-STEAM_API_KEY = config.get("steam", "api_key")
 GAMES_CACHE = {}
 
-# Non-steam games and some others return badly. So:
+# Non-steam games return badly. So:
 CHEAT_CACHE = {
-	'215280' : "The Secret World",
-	'218230' : "Planetside 2",
-	'22380'  : "Fallout: New Vegas"
+	# '215280' : "The Secret World",
+	# '218230' : "Planetside 2",
+	# '22380'  : "Fallout: New Vegas"
 }
 
-URL_BASE = "http://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v2/"
+URL_BASE = "http://store.steampowered.com/api/appdetails/"
 
 files = glob.glob("{}/*.png".format(source))
 
@@ -48,21 +46,17 @@ match = re.compile("^(\d*)_\d{4}.*\.png")
 
 def fetch_game_data(gameid):
 	if gameid in CHEAT_CACHE:
-		return {'game' : {'gameName' : CHEAT_CACHE[gameid]}}
+		return {'name' : CHEAT_CACHE[gameid]}
 	if gameid not in GAMES_CACHE:
 		payload = {
-			"key" : STEAM_API_KEY,
-			"appid" : gameid
+			"appids" : gameid
 		}
 		response = requests.get(URL_BASE, params=payload).json()
-		if "game" not in response or "gameName" not in response['game']:
-			# print gameid
-			# pprint(response)
-			# sys.exit(5)
+		if gameid not in response or "success" not in response[gameid]:
 			GAMES_CACHE[gameid] = False
 			return False
-		GAMES_CACHE[gameid] = response
-		print "Fetched {}".format(GAMES_CACHE[gameid]['game']['gameName'])
+		GAMES_CACHE[gameid] = response[gameid]['data']
+		print "Fetched {}".format(GAMES_CACHE[gameid]['name'])
 
 	return GAMES_CACHE[gameid]
 
@@ -88,7 +82,7 @@ for src_file in files:
 			print "{} -> Game ID {} not matched".format(filename, gameid)
 			continue
 		else:
-			gamename = game['game']['gameName']
+			gamename = game['name']
 			dest_file = os.path.join(destination,gamename,filename)
 			mkdir_p(os.path.join(destination,gamename))
 			os.rename(src_file, dest_file)
