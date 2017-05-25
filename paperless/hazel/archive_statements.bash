@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILE=$1;
-DIR="/Users/aquarion/Dropbox/Documents/Statements"
+DIR="/Users/aquarion/Dropbox (Personal)/Documents/Statements"
 NAME=$(cat $FILE | tail -1 | cut -d, -f1 | cut -d/ -f2-3 | sed -e "s/\([[:digit:]]*\)\/\([[:digit:]]*\)/\2-\1/");
 YEAR=$(echo $NAME | cut -d- -f1)
 if [[ $FILE =~ "00097081" ]]; then
@@ -23,4 +23,4 @@ mv "$FILE" "$DIR/$YEAR/$NAME.csv"
 
 echo mv "\"$FILE\" \"$DIR/$YEAR/$NAME.csv\"" > /dev/hazel_bank.log
 
-~/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier -message "mv $FILE $DIR/$YEAR/$NAME.csv" -title "Hazel"
+terminal-notifier -message "mv $FILE $DIR/$YEAR/$NAME.csv" -title "Hazel"
