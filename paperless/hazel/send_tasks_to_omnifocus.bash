@@ -13,4 +13,4 @@ while read p; do
 done <"$1"
 
 cat "$1" >> "$1.old"
-rm "$1"
+echo "" > "$1"
