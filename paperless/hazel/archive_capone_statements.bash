@@ -1,6 +1,15 @@
 #!/bin/bash
 
+
+set -o verbose  # Say what we're doing as we do it
+set -o errexit  # Exit if any line fails
+set -o pipefail # Exit if any piped command fails
+
+trap 'echo "Aborting due to an error on $0 line $LINENO. Exit code: $?" >&2' ERR
+set -o errtrace #Cascade that to all functions
+
 export LANG=C
+export LC_ALL=C
 FILE=$1;
 DIR="/Users/aquarion/Dropbox (Personal)/Documents/Statements"
 NAME=$(cat $FILE | tail -1 | cut -d, -f1 | cut -d/ -f2-3 | sed -e "s/\([[:digit:]]*\)\/\([[:digit:]]*\)/\2-\1/");
