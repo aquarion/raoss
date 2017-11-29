@@ -19,9 +19,9 @@ sleep 4
  		echo -n "$x:" 
  		if [ ! -e "${input}@${x}" ];
  		then
- 			echo -n "R"
+ 			echo -n "Resize:"
  			convert "${input}" -resize ${x}x  "${input}@${x}"
- 			echo -n "G"
+ 			echo -n "Squish"
  			guetzli "$output" "$output"
  		else
  			echo -n "Exists"
