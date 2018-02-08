@@ -38,4 +38,4 @@ mv "$FILE" "$DIR/$YEAR/$NAME.csv"
 
 echo mv "\"$FILE\" \"$DIR/$YEAR/$NAME.csv\"" >> /tmp/hazel_bank.log
 
-/usr/local/bin/terminal-notifier -message "Archived as $DIR $YEAR/$NAME" -title "Hazel"
+/usr/local/bin/terminal-notifier -message "Archived as $DIR $YEAR/$NAME" -title "Halifax"
