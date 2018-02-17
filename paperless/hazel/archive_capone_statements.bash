@@ -35,4 +35,4 @@ mv "$FILE" "$DIR/$YEAR/$NAME.csv"
 
 echo mv "\"$FILE\" \"$DIR/$YEAR/$NAME.csv\""
 
-terminal-notifier -message "$NAME" -title "Hazel"
+/usr/local/bin/terminal-notifier -message "Archived statement for $NAME" -title "Capital One"

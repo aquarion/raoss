@@ -25,6 +25,8 @@ else
 	PUSH="UNCOMMITED"
 fi
 
+#DEBUG# echo $DIRNAME is $FLAG
+
 if [[ $FLAG = "DIRTY" ]]
 then
 	echo -e "$REPONAME\n---------------------------------------------------------------\n\n" > $TMPFILE
