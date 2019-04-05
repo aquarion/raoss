@@ -36,7 +36,7 @@ function process_dir {
 		echo -e "[$HOSTNAME] $REPONAME\n---------------------------------------------------------------\n\n" >> $TMPFILE
 		echo -e "$DIRNAME\n\n" >> $TMPFILE
 		git status 2>&1  1>> $TMPFILE
-		cat $TMPFILE #| mail -s "[$HOSTNAME] Uncommited stuff in $REPONAME" aquarion@localhost
+		cat $TMPFILE 
 
 	elif [[ $PUSH = "UNCOMMITED" ]]
 	then
@@ -44,7 +44,7 @@ function process_dir {
 		echo -e "[$HOSTNAME] $REPONAME\n---------------------------------------------------------------\n\n" >> $TMPFILE
 		echo -e "$DIRNAME\n\n" >> $TMPFILE
 		echo "has some unpushed stuff" 2>&1  1>> $TMPFILE
-		cat $TMPFILE #| mail -s "[$HOSTNAME] Unpushed stuff in $REPONAME" aquarion@localhost
+		cat $TMPFILE 
 	fi
 
 	rm $TMPFILE;
