@@ -2,6 +2,12 @@
 
 MYHOME=`dirname $(realpath $0)`
 
+if [[ -z $1 ]] ; then
+	CODEDIR=$HOME/code/
+else
+    CODEDIR=$1
+fi
+
 function process_dir {
 	GITPATH=$1
 	DIRNAME=`dirname $1`
@@ -51,7 +57,7 @@ function process_dir {
 
 }
 
-find -L $HOME/code -type d -name .git | while read directory; do
+find -L $CODEDIR -type d -name .git | while read directory; do
 	# echo $directory
 	process_dir $directory
 done;
