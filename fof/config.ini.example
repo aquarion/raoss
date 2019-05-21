@@ -1,0 +1,6 @@
+[account]
+username = "YOU@icloud.com"
+password = "PASS"
+
+[location]
+filename = "fof.json"
