@@ -10,16 +10,29 @@
 
 # Find files | Get the MD5 for each | Filter for this checksum | restrict the output to filenames | Put double-quotes around stuff for spaces | delete all the things.
 
+TMPFILE=`tempfile`
+
+find /home/aquarion/Dropbox/IFTTT/reddit -type f -exec md5sum {} + > $TMPFILE
+
 # This is for the old 404 image.
-find /home/aquarion/Dropbox/IFTTT/reddit -type f -exec md5sum {} + \
+cat $TMPFILE \
 	| grep '^394f8b4fa928b5f2d0c13645f99e2d33' \
 	| cut -d" " -f3-  \
 	| sed 's/.*/"&"/' \
-	| xargs -r rm 
+	| xargs -r rm -v 
 
 # This is for the shiny new colourful one
-find /home/aquarion/Dropbox/IFTTT/reddit -type f -exec md5sum {} + \
+cat $TMPFILE \
 	| grep '^96ff1cee0b824f18612629b4bcf24e91' \
 	| cut -d" " -f3-  \
 	| sed 's/.*/"&"/' \
-	| xargs -r rm 
+	| xargs -r rm -v
+
+# This is for the shiny new colourful one in png form
+cat $TMPFILE \
+	| grep '^4d3559b444eb8d78b1a9e0ee15132434' \
+	| cut -d" " -f3-  \
+	| sed 's/.*/"&"/' \
+	| xargs -r rm -v
+
+rm $TMPFILE
