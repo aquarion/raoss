@@ -35,4 +35,11 @@ cat $TMPFILE \
 	| sed 's/.*/"&"/' \
 	| xargs -r rm -v
 
+# This is for the imgur one.
+cat $TMPFILE \
+	| grep '^11c1b13ba973eef71dbfc66f95352f1d' \
+	| cut -d" " -f3-  \
+	| sed 's/.*/"&"/' \
+	| xargs -r rm -v
+
 rm $TMPFILE
