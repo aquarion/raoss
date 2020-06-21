@@ -10,7 +10,7 @@ fi
 echo "using $DIRECTORY"
 sleep 4
 
- find $DIRECTORY -regextype posix-extended -name \*jpg -regex ".*\/[[:digit:]][[:digit:]]\.jpg" | while read input
+ find $DIRECTORY -regextype posix-extended -name \*jpg -regex "^[^@]+$" | while read input
  do
  	echo -n "Convert $input [";
  	for x in 600 900 1200 1800 2000;
@@ -20,7 +20,7 @@ sleep 4
  		if [ ! -e "${input}@${x}" ];
  		then
  			echo -n "Resize:"
- 			convert "${input}" -resize ${x}x  "${input}@${x}"
+ 			convert "${input}" -colorspace RGB -resize ${x}x  "${input}@${x}"
  			echo -n "Squish"
  			guetzli "$output" "$output"
  		else
