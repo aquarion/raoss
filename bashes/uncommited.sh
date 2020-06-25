@@ -2,6 +2,12 @@
 
 MYHOME=`dirname $(realpath $0)`
 
+if [[ -z $1 ]] ; then
+	CODEDIR=$HOME/code/
+else
+    CODEDIR=$1
+fi
+
 function process_dir {
 	GITPATH=$1
 	DIRNAME=`dirname $1`
@@ -36,7 +42,7 @@ function process_dir {
 		echo -e "[$HOSTNAME] $REPONAME\n---------------------------------------------------------------\n\n" >> $TMPFILE
 		echo -e "$DIRNAME\n\n" >> $TMPFILE
 		git status 2>&1  1>> $TMPFILE
-		cat $TMPFILE #| mail -s "[$HOSTNAME] Uncommited stuff in $REPONAME" aquarion@localhost
+		cat $TMPFILE 
 
 	elif [[ $PUSH = "UNCOMMITED" ]]
 	then
@@ -44,14 +50,14 @@ function process_dir {
 		echo -e "[$HOSTNAME] $REPONAME\n---------------------------------------------------------------\n\n" >> $TMPFILE
 		echo -e "$DIRNAME\n\n" >> $TMPFILE
 		echo "has some unpushed stuff" 2>&1  1>> $TMPFILE
-		cat $TMPFILE #| mail -s "[$HOSTNAME] Unpushed stuff in $REPONAME" aquarion@localhost
+		cat $TMPFILE 
 	fi
 
 	rm $TMPFILE;
 
 }
 
-find -L $HOME/code -type d -name .git | while read directory; do
+find -L $CODEDIR -type d -name .git | while read directory; do
 	# echo $directory
 	process_dir $directory
 done;

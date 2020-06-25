@@ -8,31 +8,30 @@
 #
 # This program deletes files. No warrenty is entered into. Caveat Clicktor.
 
-# Find files | Get the MD5 for each | Filter for this checksum | restrict the output to filenames | Put double-quotes around stuff for spaces | delete all the things.
+# Find files | Get the MD5 for each | Filter for this checksum | delete all the things. Now with added Array Technology!
 
-TMPFILE=`tempfile`
+# This is for the old 404 image. - 394f8b4fa928b5f2d0c13645f99e2d33
+# This is for the shiny new colourful one 96ff1cee0b824f18612629b4bcf24e91
+# This is for the shiny new colourful one in png form 4d3559b444eb8d78b1a9e0ee15132434
+# This is for the imgur one. 11c1b13ba973eef71dbfc66f95352f1d
+# THis is for the IFTTT Logo one. 639499649961ccc250e200c17d7d797f
 
-find /home/aquarion/Dropbox/IFTTT/reddit -type f -exec md5sum {} + > $TMPFILE
+IMG404HASHES=( 394f8b4fa928b5f2d0c13645f99e2d33 96ff1cee0b824f18612629b4bcf24e91 4d3559b444eb8d78b1a9e0ee15132434 11c1b13ba973eef71dbfc66f95352f1d 639499649961ccc250e200c17d7d797f )
 
-# This is for the old 404 image.
-cat $TMPFILE \
-	| grep '^394f8b4fa928b5f2d0c13645f99e2d33' \
-	| cut -d" " -f3-  \
-	| sed 's/.*/"&"/' \
-	| xargs -r rm -v 
+if [[ -z $1 ]];
+then
+	echo "Finds broken IFTTT images and deletes them. Warning: Deletes things."
+	echo "Usage: $0 [Directory]"
+	exit 5
+fi
 
-# This is for the shiny new colourful one
-cat $TMPFILE \
-	| grep '^96ff1cee0b824f18612629b4bcf24e91' \
-	| cut -d" " -f3-  \
-	| sed 's/.*/"&"/' \
-	| xargs -r rm -v
+# echo "Search $1 for broken files";
 
-# This is for the shiny new colourful one in png form
-cat $TMPFILE \
-	| grep '^4d3559b444eb8d78b1a9e0ee15132434' \
-	| cut -d" " -f3-  \
-	| sed 's/.*/"&"/' \
-	| xargs -r rm -v
-
-rm $TMPFILE
+find "$1" -type f | while read filename
+do
+	MD5SUM=`md5sum "$filename" | cut -d" " -f1`
+	if [[ " ${IMG404HASHES[@]} " =~ " ${MD5SUM} " ]]; then
+	    # echo $filename - $MD5SUM;
+	    rm "${filename}";
+	fi
+done
