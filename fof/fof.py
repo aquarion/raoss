@@ -4,6 +4,32 @@ import base64, urllib2, json, datetime, time, sys, getpass, plistlib
 
 import os
 import ConfigParser
+import logging
+from pprint import pprint
+
+LOG_FORMAT = '%(asctime)s [%(levelname)s] [%(name)s] %(message)s'
+
+logging.getLogger('').setLevel(logging.DEBUG)
+
+formatter = logging.Formatter(LOG_FORMAT)
+# filename = "%s/lifestream.log" % LOG_DIR
+# logfile = TimedRotatingFileHandler(filename, when='W0', interval=1, utc=True)
+# logfile.setLevel(logging.DEBUG)
+# logfile.setFormatter(formatter)
+# logging.getLogger('').addHandler(logfile)
+
+console = logging.StreamHandler()
+console.setFormatter(formatter)
+logging.getLogger('').addHandler(console)
+
+if ('--debug' in sys.argv):
+    console.setLevel(logging.DEBUG)
+    DEBUG = True
+else:
+    console.setLevel(logging.ERROR)
+    DEBUG = False
+
+logger = logging.getLogger(__name__)
 
 
 
@@ -123,12 +149,26 @@ if __name__ == '__main__':
     passw = config.get("account", "password");
 
     (DSID, authToken) = dsidFactory(user, passw)
+    
+    logger.info('DSID '+str(DSID)+', auth '+authToken)
+
     if authToken == 0: #http error
         print DSID
         sys.exit()
     mmeFMFAppToken = tokenFactory(DSID, authToken)
     data = HeardItFromAFriendWho(DSID, mmeFMFAppToken, user)
 
-    with open(config.get('location', 'filename'), 'w') as outfile:
-        json.dump(data, outfile)
+    if DEBUG:
+        pprint(data)
+
+    abandon = False
+    for person in data:
+        if person['location'] == None:
+            abandon = True
+            logger.debug("Abandoning due to absent data")
+    
+    if not abandon:
+        logger.info("Writing to file")
+        with open(config.get('location', 'filename'), 'w') as outfile:
+            json.dump(data, outfile)
 
