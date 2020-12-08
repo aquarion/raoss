@@ -32,6 +32,6 @@ exlock_now || dienow
 # Remember! Lock file is removed when one of the scripts exits and it is
 #           the only script holding the lock or lock is not acquired at all.
 
-cd `basedir $0`
+cd `dirname $0`
 
 python ./fof.py
