@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir -p /var/backups/homes
+
+cd /home/
+cat /etc/passwd | grep -v nologin | while read line;
+ do 
+ dir=`echo $line | cut -d: -f 6`
+ usr=`echo $line | cut -d: -f 1`
+ 
+ 
+ echo tar  --exclude-ignore-recursive=.backup_ignore -jcf /var/backups/homes/$usr-`date +%A`.tar.bz2 $usr;
+done

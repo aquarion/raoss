@@ -12,6 +12,6 @@ echo "Looking in `realpath $searchdir`"
 find -L $searchdir -name wp-settings.php -not -regex ".*archive.*" 2> /dev/null | while read linein
 do
 	DIR=`dirname $linein`
-	VERSION=`~aquarion/bin/wp core version --path="$DIR" --allow-root`
+	VERSION=`wp core version --path="$DIR" --allow-root`
 	echo $VERSION at `realpath $DIR`
 done | sort | uniq

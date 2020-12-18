@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd /var/www/virtualhosts/
+for usr in *;
+ do usr=`basename $usr`;
+ tar --exclude=scratch --exclude=tempstuff --exclude=cache -jcf /var/backups/websites/$usr-`date +%A`.tar.bz2 $usr;
+done
+
+cd /var/www
+tar --exclude=scratch --exclude=cache -jcf /var/backups/websites/wordpress-`date +%A`.tar.bz2 wordpress;
