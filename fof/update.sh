@@ -34,4 +34,4 @@ exlock_now || dienow
 
 cd `dirname $0`
 
-python ./fof.py
+python2 ./fof.py
