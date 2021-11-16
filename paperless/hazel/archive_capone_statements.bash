@@ -11,7 +11,7 @@ set -o errtrace #Cascade that to all functions
 export LANG=C
 export LC_ALL=C
 FILE=$1;
-DIR="/Users/aquarion/Dropbox (Personal)/Documents/Statements"
+DIR="/Users/aquarion/Documents/Statements"
 NAME=$(cat $FILE | tail -1 | cut -d, -f1 | cut -d/ -f2-3 | sed -e "s/\([[:digit:]]*\)\/\([[:digit:]]*\)/\2-\1/");
 YEAR=$(echo $NAME | cut -d- -f1)
 # if [[ $FILE =~ "00097081" ]]; then
