@@ -1,0 +1,9 @@
+altgraph==0.17.2
+certifi==2021.10.8
+charset-normalizer==2.0.9
+idna==3.3
+pyinstaller==4.7
+pyinstaller-hooks-contrib==2021.4
+requests==2.26.0
+simplejson==3.17.6
+urllib3==1.26.7
