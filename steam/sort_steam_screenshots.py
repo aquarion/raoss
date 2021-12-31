@@ -39,6 +39,14 @@ CHEAT_CACHE = {
 
 URL_BASE = "http://store.steampowered.com/api/appdetails/"
 
+if not os.path.exists(source):
+    print("Error: {} does not exist".format(source))
+    sys.exit(5)
+
+if not os.path.exists(destination):
+    print("Error: {} does not exist".format(destination))
+    sys.exit(5)
+
 files = glob.glob("{}/*.png".format(source))
 
 # match = re.compile("(\d*)_(\d{4}\-?\d{2})\-?\d{2}\d{6}?_\d*\.png")
