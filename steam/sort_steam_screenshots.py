@@ -5,7 +5,7 @@
 # I'm running it as a cronjob.
 
 import requests
-import ConfigParser
+import configparser
 import re
 import sys, os
 import errno
@@ -13,7 +13,7 @@ import glob
 import simplejson
 from pprint import pprint
 
-config = ConfigParser.RawConfigParser()
+config = configparser.RawConfigParser()
 
 working_dir = os.path.dirname(sys.argv[0])
 config_location = os.path.expanduser("{}/config.ini".format(working_dir))
@@ -56,7 +56,7 @@ def fetch_game_data(gameid):
 			GAMES_CACHE[gameid] = False
 			return False
 		GAMES_CACHE[gameid] = response[gameid]['data']
-		print "Fetched {}".format(GAMES_CACHE[gameid]['name'])
+		print("Fetched {}".format(GAMES_CACHE[gameid]['name']))
 
 	return GAMES_CACHE[gameid]
 
@@ -79,13 +79,13 @@ for src_file in files:
 		gameid = matches.groups()[0]
 		game = fetch_game_data(gameid)
 		if not game:
-			print "{} -> Game ID {} not matched".format(filename, gameid)
+			print("{} -> Game ID {} not matched".format(filename, gameid))
 			continue
 		else:
 			gamename = game['name']
 			dest_file = os.path.join(destination,gamename,filename)
 			mkdir_p(os.path.join(destination,gamename))
 			os.rename(src_file, dest_file)
-			print "{} -> {}".format(filename, gamename)
+			print("{} -> {}".format(filename, gamename))
 	# else:
 	# 	print "{} -> Not matched".format(filename)
