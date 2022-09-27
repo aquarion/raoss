@@ -13,32 +13,47 @@ else
 fi
 
 
+WEBP="${1%.*}".webp
+if [ ! -e "${WEBP}" ];
+then
+	echo "Creating webp version of $1"
+	convert "${input}" -quality 50 -define webp:lossless=true "${WEBP}"
+fi
+
 echo -n "Convert $input [";
 for x in 600 900 1200 1800 2000;
 do
 	output="${input}@${x}"
-	echo -n "$x:" 
+	echo -n "$x:"
 	if [ ! -e "${input}@${x}" ];
 	then
-		echo -n "Resize:"
+		echo -n "R"
 		convert "${input}" -resize ${x}x  "${input}@${x}"
-		echo -n "Squish"
+		echo -n "J"
 		guetzli "$output" "$output"
 	else
-		echo -n "Exists"
+		echo -n "j"
+	fi
+
+	if [ ! -e "${WEBP}@${x}" ];
+	then
+		echo -n "W"
+		convert "${input}" -quality 50 -define webp:lossless=true -resize ${x}x "${WEBP}@${x}" 
+	else
+		echo -n "w"
 	fi
 	echo -n "|"
 done
 echo "!]"
 
-for x in 600 900 1200 1800 2000;
-do
-	cat <<-EOF
+# for x in 600 900 1200 1800 2000;
+# do
+# 	cat <<-EOF
 
-	@media (max-width: ${x}px) {
-		body {
-	    	background-image: url("${input}@${x}");
-		}
-	}
-	EOF
-done
+# 	@media (max-width: ${x}px) {
+# 		body {
+# 	    	background-image: url("${input}@${x}");
+# 		}
+# 	}
+# 	EOF
+# done
