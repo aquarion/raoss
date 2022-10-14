@@ -18,6 +18,23 @@
 
 IMG404HASHES=( 394f8b4fa928b5f2d0c13645f99e2d33 96ff1cee0b824f18612629b4bcf24e91 4d3559b444eb8d78b1a9e0ee15132434 11c1b13ba973eef71dbfc66f95352f1d 639499649961ccc250e200c17d7d797f )
 
+# directories
+LOCKDIR=/tmp
+
+# Locking code based on code from http://troy.jdmz.net/cron/
+
+# Originally by Troy Johnson,
+# Adapted by Nicholas Avenell <nicholas@aquarionics.com> for lifestream.
+
+# lock file creation and removal
+LOCKFILE=$LOCKDIR/`basename $0`.lock
+[ -f $LOCKFILE ] && echo $LOCKFILE exists && exit 0
+trap "{ rm -f $LOCKFILE; exit 255; }" 2
+trap "{ rm -f $LOCKFILE; exit 255; }" 9
+trap "{ rm -f $LOCKFILE; exit 255; }" 15
+trap "{ rm -f $LOCKFILE; exit 0; }" EXIT
+touch $LOCKFILE
+
 if [[ -z $1 ]];
 then
 	echo "Finds broken IFTTT images and deletes them. Warning: Deletes things."
