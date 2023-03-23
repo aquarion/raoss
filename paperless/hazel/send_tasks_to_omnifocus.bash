@@ -4,7 +4,8 @@ source ~/.bash_profile
 
 if [[ ! -e "$1" ]]
 then
-	exit
+  echo File not supplied
+	exit 7
 fi
 
 while read p; do
