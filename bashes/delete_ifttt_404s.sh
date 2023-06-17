@@ -44,11 +44,16 @@ fi
 
 # echo "Search $1 for broken files";
 
+n=0;
+t=`find "$1" -type f | wc -l` 
+
 find "$1" -type f | while read filename
 do
+	n=$(($n+1))
 	MD5SUM=`md5sum "$filename" | cut -d" " -f1`
+	printf "%05d/%05d %-72s \033[0K\r" $n $t "$filename"
 	if [[ " ${IMG404HASHES[@]} " =~ " ${MD5SUM} " ]]; then
-	    # echo $filename - $MD5SUM;
+	    echo -e "\n $filename - $MD5SUM Deleted";
 	    rm "${filename}";
 	fi
 done
