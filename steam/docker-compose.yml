@@ -1,9 +1,0 @@
-version: "3.9"
-services:
-  script:
-    build: 
-      context: ./
-      dockerfile: docker/script.Dockerfile
-    volumes:
-      - ./:/usr/src/app
-      - /volume1/:/volume1

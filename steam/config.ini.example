@@ -1,6 +1,0 @@
-[steam]
-
-; Looking for anything matching ^(\d*)_\d{4}.*\.png in here
-screenshots = /home/aquarion/Dropbox/Screenshots/
-; Screenshots will go into $destination/$gamename/$filename. So ~aquarion/Photos/Games/Fallout 4/306760_20160825142347_1.png
-destination = /home/aquarion/Dropbox/Photos/Game_Screenshots/
