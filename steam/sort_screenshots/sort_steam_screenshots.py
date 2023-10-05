@@ -12,6 +12,7 @@ import glob
 import simplejson
 import argparse
 from pprint import pprint
+from pathvalidate import sanitize_filepath
 
 parser = argparse.ArgumentParser(
                     prog='Sort Steam Screenshots',
@@ -84,8 +85,9 @@ for src_file in all_png_files:
 			print(("{} -> Game ID {} not matched".format(screenshot_file, steam_game_id)))
 			continue
 		else:
-			game_name = game_data['name']
+			game_name = sanitize_filepath(game_data['name'])
 			dest_file = os.path.join(working_dir,game_name,screenshot_file)
+			dest_file = sanitize_filepath(dest_file)
 			mkdir_p(os.path.join(working_dir,game_name))
 			os.rename(src_file, dest_file)
 			print(("{} -> {}".format(screenshot_file, game_name)))
