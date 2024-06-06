@@ -11,7 +11,7 @@ LAST_WORKING=$LOG_DIRECTORY/apache_responding_last_working.log
 LAST_BEFORE_CRASH=$LOG_DIRECTORY/apache_responding_last_before_crash.log
 
 
-www-browser -dump https://cenote.gkhs.net/server-status > $APACHE_RESPONE
+timeout 15 www-browser -dump https://cenote.gkhs.net/server-status > $APACHE_RESPONE
 LYNX_RETURN=$?
 
 if [ $LYNX_RETURN -ne 0 ]; then
