@@ -20,6 +20,7 @@ do
 	
 	pushd $DIR > /dev/null
 	OWNER=`stat -c '%U' wp-config.php`
+	echo -n " .. Working as $OWNER .. "
 	sudo chown -R $OWNER:www-data .
 	echo -n "   ... [Core|"
 	sudo -u $OWNER wp core update | ts >> upgrade.log && \
