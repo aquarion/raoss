@@ -22,6 +22,8 @@ do
 	OWNER=`stat -c '%U' wp-config.php`
 	echo -n " .. Working as $OWNER .. "
 	sudo chown -R $OWNER:www-data .
+	sudo -u $OWNER touch upgrade.log
+	sudo chmod o+w upgrade.log
 	echo -n "   ... [Core|"
 	sudo -u $OWNER wp core update | ts >> upgrade.log && \
 		echo -n "Plugins|" && sudo -u $OWNER wp plugin update --all | ts >> upgrade.log && \
