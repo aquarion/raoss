@@ -4,5 +4,5 @@ idna==3.7
 python-dotenv==1.0.0
 requests==2.32.4
 simplejson==3.19.1
-urllib3==2.5.0  
+urllib3==2.6.0  
 pathvalidate==3.2.0
