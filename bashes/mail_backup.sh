@@ -1,4 +1,6 @@
-#bin/bash
+#!/bin/bash
+# Downloads mail for aquarionics and istic accounts via getmail. Uses a lock file
+# to prevent concurrent runs. Run interactively first to complete OAuth authorisation.
 
 # directories
 LOCKDIR=/tmp
@@ -9,13 +11,12 @@ LOCKDIR=/tmp
 # Adapted by Nicholas Avenell <nicholas@aquarionics.com> for lifestream.
 
 # lock file creation and removal
-LOCKFILE=$LOCKDIR/`basename $0`.lock
-[ -f $LOCKFILE ] && echo $LOCKFILE exists && exit 0
-trap "{ rm -f $LOCKFILE; exit 255; }" 2
-trap "{ rm -f $LOCKFILE; exit 255; }" 9
-trap "{ rm -f $LOCKFILE; exit 255; }" 15
-trap "{ rm -f $LOCKFILE; exit 0; }" EXIT
-touch $LOCKFILE
+LOCKFILE=$LOCKDIR/$(basename "$0").lock
+[ -f "$LOCKFILE" ] && echo "$LOCKFILE" exists && exit 0
+trap '{ rm -f "$LOCKFILE"; exit 255; }' 2
+trap '{ rm -f "$LOCKFILE"; exit 255; }' 15
+trap '{ rm -f "$LOCKFILE"; exit 0; }' EXIT
+touch "$LOCKFILE"
 
 getmail -qr /home/aquarion/.getmail/getmail.aquarionics
 getmail -qr /home/aquarion/.getmail/getmail.istic

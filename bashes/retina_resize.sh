@@ -1,44 +1,39 @@
 #!/bin/bash
+# Generates retina/responsive image variants of a given image file at multiple
+# widths (600, 900, 1200, 1800, 2000px) in both JPEG (via guetzli) and WebP formats.
 
-if [ -z $1 ];
-then
+if [ -z "$1" ]; then
 	echo "usage: $0 FILENAME"
 	exit 5
-elif [ ! -f $1 ];
-then
+elif [ ! -f "$1" ]; then
 	echo "usage: $0 FILENAME [$1 not found]"
 	exit 5
 else
 	export input=$1
 fi
 
-
 WEBP="${1%.*}".webp
-if [ ! -e "${WEBP}" ];
-then
+if [ ! -e "${WEBP}" ]; then
 	echo "Creating webp version of $1"
 	convert "${input}" -quality 50 -define webp:lossless=true "${WEBP}"
 fi
 
-echo -n "Convert $input [";
-for x in 600 900 1200 1800 2000;
-do
+echo -n "Convert $input ["
+for x in 600 900 1200 1800 2000; do
 	output="${input}@${x}"
 	echo -n "$x:"
-	if [ ! -e "${input}@${x}" ];
-	then
+	if [ ! -e "${input}@${x}" ]; then
 		echo -n "R"
-		convert "${input}" -resize ${x}x  "${input}@${x}"
+		convert "${input}" -resize ${x}x "${input}@${x}"
 		echo -n "J"
 		guetzli "$output" "$output"
 	else
 		echo -n "j"
 	fi
 
-	if [ ! -e "${WEBP}@${x}" ];
-	then
+	if [ ! -e "${WEBP}@${x}" ]; then
 		echo -n "W"
-		convert "${input}" -quality 50 -define webp:lossless=true -resize ${x}x "${WEBP}@${x}" 
+		convert "${input}" -quality 50 -define webp:lossless=true -resize ${x}x "${WEBP}@${x}"
 	else
 		echo -n "w"
 	fi

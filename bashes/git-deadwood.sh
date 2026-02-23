@@ -1,4 +1,6 @@
 #!/bin/bash
+# Deletes local branches already merged into main (or master), then prunes
+# stale remote-tracking references with git fetch --prune.
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
 

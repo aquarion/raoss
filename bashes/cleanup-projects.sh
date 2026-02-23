@@ -1,4 +1,6 @@
 #!/bin/bash
+# Iterates over subdirectories of the current directory, switches each git repo to
+# main, pulls the latest changes, then prunes merged branches via git deadwood.
 
 STARTING_DIRECTORY=$(realpath .)
 
