@@ -20,7 +20,7 @@ fi
 echo "Deleting local branches:"
 BRANCHES=$(git branch --merged=$MAIN | grep -v $MAIN)
 if [[ $BRANCHES ]]; then
-	git branch -d "$(git branch --merged=$MAIN | grep -v $MAIN)"
+	git branch --merged=$MAIN | grep -v $MAIN | xargs git branch -d
 else
 	echo ' - Nothing to delete'
 fi
