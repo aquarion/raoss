@@ -2,10 +2,14 @@
 # Deletes local branches already merged into main (or master), then prunes
 # stale remote-tracking references with git fetch --prune.
 
+COLOR_RED='\033[0;31m'
+COLOR_GREEN='\033[0;32m'
+COLOR_RESET='\033[0m'
+
 GIT_ROOT=$(git rev-parse --show-toplevel)
 
 if [ -z "$GIT_ROOT" ]; then
-	echo "You need to be in a git repo for this to have any hope of working"
+	echo -e "${COLOR_RED}You need to be in a git repo for this to have any hope of working${COLOR_RESET}"
 	exit 1
 fi
 
@@ -14,16 +18,23 @@ if [ "$(git rev-parse --verify main 2>/dev/null)" ]; then
 elif [ "$(git rev-parse --verify master 2>/dev/null)" ]; then
 	MAIN=master
 else
-	echo N\'eer main nor master branch here, I cannot help thee.
+	echo -e "${COLOR_RED}N\'eer main nor master branch here, I cannot help thee.${COLOR_RESET}"
 	exit 5
 fi
-echo "Deleting local branches:"
+
 BRANCHES=$(git branch --merged=$MAIN | grep -v $MAIN)
 if [[ $BRANCHES ]]; then
-	git branch --merged=$MAIN | grep -v $MAIN | xargs git branch -d
-else
-	echo ' - Nothing to delete'
+	echo -e "${COLOR_GREEN}Deleting local branches that have been merged into $MAIN${COLOR_RESET}"
+	echo "$BRANCHES" | xargs git branch -d
 fi
+
 echo ""
-echo "Pruning remote branches"
+echo -e "${COLOR_GREEN}Pruning locally tracked remote branches${COLOR_RESET}"
 git fetch --prune
+
+
+BRANCHES=$(git branch -vv | grep ': gone]' | awk '{print $1}')
+if [[ $BRANCHES ]]; then
+	echo -e "${COLOR_GREEN}Pruning local branches that have been merged into $MAIN and are tracking a remote branch that has been deleted${COLOR_RESET}"
+	echo "$BRANCHES" | xargs git branch -d
+fi

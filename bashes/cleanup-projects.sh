@@ -3,8 +3,10 @@
 # main, pulls the latest changes, then prunes merged branches via git deadwood.
 
 STARTING_DIRECTORY=$(realpath .)
+MAXDEPTH=${1:-1}
 
-find . -type d -maxdepth 1 | while read -r DIR; do
+echo "Starting cleanup of git projects in $STARTING_DIRECTORY with max depth of $MAXDEPTH"
+find .  -maxdepth "$MAXDEPTH" -type d | while read -r DIR; do
 	pushd "$DIR" || continue
 	if [ -d .git ]; then
 		git switch main &&
